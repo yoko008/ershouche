@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="true">
+	<!-- 这是里配置jdbc数据库连接 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="classpath:db.properties" />
+	</bean>
+
+	<bean id="dataSource" destroy-method="close"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource">
+		</property>
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	</bean>
+
+	<!-- 这里配置dao方法 -->
+
+	 <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.zjjershouche.dao.UserDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean> 
+	<bean id="carDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.zjjershouche.dao.CarDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean> 
+	<bean id="adminDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.zjjershouche.dao.AdminDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<!-- 模板任务Service -->
+
+	 <bean id="userService" class="com.zjjershouche.service.UserService">
+		<property name="userDao" ref="userDao"></property>
+	</bean> 
+	 <bean id="carService" class="com.zjjershouche.service.CarService">
+		<property name="carDao" ref="carDao"></property>
+	</bean>
+	 <bean id="adminService" class="com.zjjershouche.service.AdminService">
+		<property name="adminDao" ref="adminDao"></property>
+	</bean>
+
+	<!-- action -->
+
+	<bean id="userAction" class="com.zjjershouche.action.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="carAction" class="com.zjjershouche.action.CarAction" scope="prototype">
+		<property name="carService" ref="carService"></property>
+	</bean>
+	<bean id="adminAction" class="com.zjjershouche.action.AdminAction" scope="prototype">
+		<property name="adminService" ref="adminService"></property>
+	</bean>
+
+</beans>

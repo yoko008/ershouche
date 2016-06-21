@@ -1,0 +1,81 @@
+@import url(base.css);
+@import url(common.css);
+@charset "utf-8";
+/*全站链接样式*/
+a{color:#333; text-decoration:none;}
+a:hover{color:#ff6600;text-decoration:none;} 
+.blank{height:10px;}
+body{color:#333;font-size:12px;}
+.blank{height:10px;}
+
+body{font-weight:normal;font:12px "微软雅黑",verdana,lucida,helvetica,arial,sans-serif;}
+
+/*搜索*/
+.search_box{padding-bottom:10px;background:#fff;border:1px solid #d8d8d8;}
+.search_box .condition{height:60px;line-height:58px;padding-left:10px;}
+.search_box select{padding:1px;border:1px solid #ccc;}
+.search_box .search_list{padding:0;}
+.search_box .search_list li{height:38px;line-height:38px;border-top:1px solid #eee;color:#999;padding:0 10px;}
+.search_box .search_list li a{color:#0066cc;margin-left:10px;}
+.search_box .search_list li a:hover{background:#ee7700;color:#fff;padding:1px 5px;}
+.search_box .search_list li a.here{background:#ee7700;color:#fff;padding:1px 5px;}
+
+/*条件*/
+.condition_list li{padding:0 5px;float:left;}
+.condition_list li a{padding:2px 20px 2px 3px;border:1px solid #e9e9e9;border-right:2px solid #e9e9e9;border-bottom:2px solid #e9e9e9;background:#fff url(../img/close.gif) no-repeat right 7px;}
+.condition_list li a:hover{border:1px solid #c00;border-right:2px solid #c00;border-bottom:2px solid #c00;color:#666}
+.cbutton{background: none repeat scroll 0 0 #DDDDDD;border-color:-moz-use-text-color #666666 #666666 -moz-use-text-color;border-style: none solid solid none;border-width: 0 1px 1px 0;margin-left:2px;padding:3px 8px 2px 8px;}
+
+
+/*车源列表*/
+.search_big_box{border:1px solid #d8d8d8;background:#fff;}
+.search_big_box .orderlist{padding:10px;height:30px;line-height:30px;background:#f9f9f9;border-bottom:1px solid #e9e9e9;}
+.search_big_box .box{}
+
+/*排序*/
+.orderlist li{float:left;padding:0 25px 0 10px;border-right:1px solid #e9e9e9;}
+.orderlist li.or01{background:url(../img/common_sprite.gif) no-repeat 40px -38px;}
+.orderlist li.or02{background:url(../img/common_sprite.gif) no-repeat 40px -60px;}
+.orderlist li.or03{background:url(../img/common_sprite.gif) no-repeat 40px -84px;}
+.orderlist li.or04{background:url(../img/common_sprite.gif) no-repeat 40px -108px;}
+.orderlist li.or03 a,.orderlist li.or04 a{font-weight:bold;color:#ee7700}
+
+/*每页显示条数*/
+.page_num{float:right;}
+.page_num .num{background:#fff;padding:0 3px;border:1px solid #e9e9e9;}
+
+.bigcarlist li{float:left;width:206px;padding:21px;border-bottom:1px solid #e9e9e9;}
+.bigcarlist .bbg{border-right:1px solid #e9e9e9;}
+.bigcarlist li img{width:206px;height:160px;}
+.bigcarlist li p.carname{height:35px;line-height:35px;font-size:14px;}
+.bigcarlist li p a{color:#0066cc;text-decoration:undercar;}
+.bigcarlist li p{margin-top:5px;}
+.bigcarlist .check01{float:left;display:block;width:17px;height:16px;background:url(../img/check.jpg) no-repeat;display:inline;margin-left:5px;}
+.bigcarlist .check02{float:left;display:block;width:17px;height:16px;background:url(../img/check.jpg) no-repeat -17px 0;display:inline;margin-left:5px;}
+.bigcarlist .check03{float:left;display:block;width:17px;height:16px;background:url(../img/check.jpg) no-repeat -34px 0;display:inline;margin-left:5px;}
+
+
+/*车源详情*/
+.cartitle{padding:10px 20px;margin-left:auto;margin-right:auto;border:1px solid #d8d8d8;background:#f7f7f7;font-size:18px;border-bottom:none;color:#333;font-weight:bold;}
+.carbox{padding:20px;margin-left:auto;margin-right:auto;border:1px solid #d8d8d8;background:#fbfbfb;}
+.carbox_left{float:left;width:360px;}
+.carbox_left img{width:350px;}
+.carbox_right{float:right;width:310px;font-size:14px;position:relative;}
+.carbox_right p.price01{padding:5px 0}
+.but01{background:#317ee7;color:#fff;font-size:12px;font-family:"宋体";padding:2px;cursor:pointer;}
+.but02{background:#d50808;color:#fff;font-size:12px;font-family:"宋体";padding:2px;cursor:pointer;}
+
+.detail01{padding:10px 20px;background:#fff;border:1px solid #d8d8d8;}
+.detail01 li{float:left;width:130px;height:25px;line-height:25px;color:#666;font-size:12px;}
+.detail01 li.li01{width:360px;}
+.detail02{padding:10px;background:#ffffe6;border:1px solid #fcb586;font-size:12px;}
+.detail02 p{padding:5px 0;}
+.detail02 p select{padding:2px;border:1px solid #ccc;}
+
+/**/
+.cktable{width:100%;border-left:1px solid #d8d8d8;border-top:1px solid #d8d8d8;}
+.cktable th{width:20%;padding:5px;font-size:14px;text-align:left;border-right:1px solid #d8d8d8;border-bottom:1px solid #d8d8d8;background:#f5f5f5;}
+.cktable td{width:30%;padding:5px;font-size:14px;border-right:1px solid #d8d8d8;border-bottom:1px solid #d8d8d8;}
+
+/*进入店铺*/
+.entershop{margin:0 auto;display:block;background: url("../img/butbg.jpg") repeat-x scroll 0 0 transparent;border: 1px solid #CC6C00;color: #FFFFFF;font-size:14px;text-align:center;width:120px;height:24px;line-height:24px;overflow:hidden;font-weight:bold;}

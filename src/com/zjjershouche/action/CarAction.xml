@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="car" namespace="/car" extends="zjjershouche">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+		<interceptors>
+			<interceptor name="json"
+				class="org.apache.struts2.json.JSONInterceptor" />
+		</interceptors>
+		<action name="carAction" class="carAction">
+			<result name="buyPageSuccess">
+				/user/buyCar.jsp
+			</result>
+			<result name="fabuSuccess"  type="redirectAction">
+               <param name="namespace">/user</param>
+               <param name="actionName">userAction!index</param>
+			</result>
+			<result name="searchSuccess">
+			    /user/carlist.jsp
+			</result>
+			<result name="sellCar">
+			    /user/sell02.jsp
+			</result>
+			<result name="qiugou">
+			    /user/buy.jsp
+			</result>
+			<result name="userfabu">
+			    /user/userCarInfo.jsp
+			</result>
+			<result name="wantCarList">
+			    /user/wantcarlist.jsp
+			</result>
+			<result name="liandongSuccess" type="json">
+				<param name="root">mark</param>
+			</result>
+			<result name="qiugouSuccess"  type="redirectAction">
+               <param name="namespace">/user</param>
+               <param name="actionName">userAction!index</param>
+			</result>
+		</action>
+	</package>
+</struts>

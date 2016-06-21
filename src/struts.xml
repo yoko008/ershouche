@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 这个是为了能模型传值！ -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	<!-- 把这个配置和spring绑定起来 -->
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<!-- 配置action -->
+	<package name="zjjershouche" namespace="/zjjershouche" extends="json-default">
+		<action name="userAction" class="userAction">
+			<result name="success">
+				/index.jsp
+			</result>
+		</action>
+	</package>
+ 	<include file="com/zjjershouche/action/UserAction.xml"></include>
+ 	<include file="com/zjjershouche/action/CarAction.xml"></include>
+ 	<include file="com/zjjershouche/action/AdminAction.xml"></include>
+	
+</struts>

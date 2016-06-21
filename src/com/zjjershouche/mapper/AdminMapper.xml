@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjjershouche.dao.AdminDao">
+	<select id="login" parameterType="User" resultType="User">
+	    select * from user where username=#{username} and password=#{password} and status=0 and type=1
+	</select>
+	<select id="listnum" parameterType="Search"  resultType="int">
+	    select count(1) from user where type=0
+	    <if test="keyword!= null and keyword!= ''">
+			 and username like CONCAT('%',#{keyword},'%') 
+		</if>
+	</select>
+    <select id="userList"  resultMap="resultUser">
+        select * from user where type=0
+        <if test="search!= null and search!= ''">
+			 and username like CONCAT('%',#{search.keyword},'%') 
+		</if>
+		 order by id desc limit #{page.startnum},#{page.pagelistnum}
+    </select>
+    <update id="resetPass" parameterType="User">
+        update user set 
+        <if test="realname!='admin'">
+         password='zjj123456' 
+        </if>
+        <if test="realname=='admin'">
+         type=1  
+        </if>
+         where id=#{id}
+    </update>
+    <update id="caozuo" parameterType="User">
+        update user set 
+        <if test="status==0">
+         status=1 
+        </if>
+        <if test="status==1">
+         status=0  
+        </if>
+        where id=#{id}
+    </update>
+    <select id="searchCarSelect" resultMap="resultCarpinpai">
+	    select * from carpinpai
+	</select>
+	<select id="searchCar"  resultMap="resultCar">
+	    select * from car 
+	    <if test="search!= null and search!= ''">
+			 where title like CONCAT('%',#{search.keyword},'%') 
+		</if>
+		 order by id desc limit #{page.startnum},#{page.pagelistnum}
+	</select>
+	<select id="carlistnum" parameterType="Search"  resultType="int">
+	    select count(1) from car 
+	    <if test="keyword!= null and keyword!= ''">
+			 where title like CONCAT('%',#{keyword},'%') 
+		</if>
+	</select>
+	<update id="carcaozuo" parameterType="Car">
+        update car set status=#{status} where id=#{id}
+    </update>
+    <update id="checkPass" parameterType="Car">
+        update car set type = 1 where id = #{id}
+    </update>
+	<resultMap type="Carselect" id="resultCarselect">
+		<id property="id" column="id" />
+		<result property="pinpai" column="pinpai" />
+		<result property="chexi" column="chexi" />
+		</resultMap>
+	<resultMap type="Carpinpai" id="resultCarpinpai">
+		<id property="id" column="id" />
+		<result property="pinpai" column="pinpai" />
+		<result property="pinpaiword" column="pinpaiword" />
+	</resultMap>
+    <resultMap type="User" id="resultUser">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="email" column="email" />
+		<result property="sex" column="sex" />
+		<result property="phone" column="phone" />
+		<result property="status" column="status" />
+		<result property="type" column="type" />
+	</resultMap>
+	<resultMap type="Car" id="resultCar">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="note" column="note" />
+		<result property="carpinpai" column="carpinpai" />
+		<result property="chexi" column="chexi" />
+		<result property="cartype" column="cartype" />
+		<result property="carcolor" column="carcolor" />
+		<result property="username" column="username" />
+		<result property="pailiang" column="pailiang" />
+		<result property="licheng" column="licheng" />
+		<result property="biansuxiang" column="biansuxiang" />
+		<result property="shangpaidate" column="shangpaidate" />
+		<result property="lianxiren" column="lianxiren" />
+		<result property="lianxidianhua" column="lianxidianhua" />
+		<result property="biaolicheng" column="biaolicheng" />
+		<result property="yiershou" column="yiershou" />
+		<result property="jiaoqiangxian" column="jiaoqiangxian" />
+		<result property="cheling" column="cheling" />
+		<result property="chuchangri" column="chuchangri" />
+		<result property="chekuang" column="chekuang" />
+		<result property="chepaihao" column="chepaihao" />
+		<result property="kanchedizhi" column="kanchedizhi" />
+		<result property="qitagongneng" column="qitagongneng" />
+		<result property="fabudate" column="fabudate" />
+		<result property="liulan" column="liulan" />
+		<result property="zan" column="zan" />
+		<result property="status" column="status" />
+		<result property="type" column="type" />
+		<result property="jiage" column="jiage" />
+		<result property="carimgurl" column="carimgurl" />
+	</resultMap>
+</mapper>

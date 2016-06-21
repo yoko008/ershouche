@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjjershouche.dao.UserDao">
+	<select id="login" resultType="User" parameterType="User">
+		select * from user where username=#{username} and password=#{password} and status=0
+	</select>
+	<insert id="register" parameterType="User">
+	    insert into user values(default,#{username},#{password},#{email},#{realname},#{phone},#{reqdate},default,default)
+	</insert>
+	<select id="yanzhenUser" parameterType="User" resultType="User">
+	    select * from user where username=#{username}
+	</select>
+	<select id="indexCar" resultMap="resultCar">
+	    select * from car c,carimg i where c.status=0 and c.type=1 and c.id=i.carid and i.fengmian=0 order by rand() limit 10
+	</select>
+	<select id="indexCarL" resultMap="resultCar">
+	    select * from car c,carimg i where c.status=0 and c.type=1 and c.jiage&gt;30  and c.id=i.carid and i.fengmian=0  order by rand() limit 10
+	</select>
+	<select id="indexCarM" resultMap="resultCar">
+	    select * from car c,carimg i where c.status=0 and c.type=1 and c.jiage between 10 and 30 and c.id=i.carid and i.fengmian=0  order by rand() limit 10
+	</select>
+	<select id="indexCarS" resultMap="resultCar">
+	    select * from car c,carimg i where c.status=0 and c.type=1 and c.jiage between 0 and 10 and c.jiage&lt;10 and c.id=i.carid and i.fengmian=0  order by rand() limit 10
+	</select>
+	<select id="searchCarSelect" resultMap="resultCarpinpai">
+	    select * from carpinpai
+	</select>
+	<select id="remenCarList" resultMap="resultCar">
+	    select * from car where status=0 and type=1 order by liulan desc limit 10
+	</select>
+	
+	<select id="zuixinCar" resultMap="resultCar">
+	    select * from car where status=0 and type=1 order by id desc limit 7
+	</select>
+	<select id="qiugouCar" resultMap="resultCar">
+	    select * from wantcar where status=0 order by id desc limit 7
+	</select>
+	<update id="editUser" parameterType="User">
+	    update user set email=#{email},phone=#{phone},realname=#{realname} where id=#{id}
+	</update>
+	<update id="editPassword" parameterType="User">
+	    update user set password=#{password} where id=#{id}
+	</update>
+	<resultMap type="User" id="resultUser">
+		<id property="id" column="id" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="email" column="email" />
+		<result property="sex" column="sex" />
+		<result property="phone" column="phone" />
+		<result property="status" column="status" />
+		<result property="type" column="type" />
+	</resultMap>
+	<resultMap type="Carpinpai" id="resultCarpinpai">
+		<id property="id" column="id" />
+		<result property="pinpai" column="pinpai" />
+		<result property="pinpaiword" column="pinpaiword" />
+	</resultMap>
+	<resultMap type="Car" id="resultCar">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="note" column="note" />
+		<result property="carpinpai" column="carpinpai" />
+		<result property="chexi" column="chexi" />
+		<result property="cartype" column="cartype" />
+		<result property="carcolor" column="carcolor" />
+		<result property="username" column="username" />
+		<result property="pailiang" column="pailiang" />
+		<result property="licheng" column="licheng" />
+		<result property="biansuxiang" column="biansuxiang" />
+		<result property="shangpaidate" column="shangpaidate" />
+		<result property="lianxiren" column="lianxiren" />
+		<result property="lianxidianhua" column="lianxidianhua" />
+		<result property="biaolicheng" column="biaolicheng" />
+		<result property="yiershou" column="yiershou" />
+		<result property="jiaoqiangxian" column="jiaoqiangxian" />
+		<result property="cheling" column="cheling" />
+		<result property="chuchangri" column="chuchangri" />
+		<result property="chekuang" column="chekuang" />
+		<result property="chepaihao" column="chepaihao" />
+		<result property="kanchedizhi" column="kanchedizhi" />
+		<result property="qitagongneng" column="qitagongneng" />
+		<result property="fabudate" column="fabudate" />
+		<result property="liulan" column="liulan" />
+		<result property="zan" column="zan" />
+		<result property="stauts" column="stauts" />
+		<result property="type" column="type" />
+		<result property="jiage" column="jiage" />
+		<association property="carimg" javaType="Carimg">
+			<id property="id" column="id" />
+			<result property="carid" column="carid" />
+			<result property="carimgurl" column="carimgurl" />
+			<result property="fengmian" column="fengmian" />
+		</association>
+	</resultMap>
+</mapper>

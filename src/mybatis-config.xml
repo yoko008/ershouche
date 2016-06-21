@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.zjjershouche.model.User" alias="User" />
+		<typeAlias type="com.zjjershouche.model.Car" alias="Car" />
+		<typeAlias type="com.zjjershouche.model.Search" alias="Search" />
+		<typeAlias type="com.zjjershouche.model.Carimg" alias="Carimg" />
+		<typeAlias type="com.zjjershouche.model.Carselect" alias="Carselect" />
+		<typeAlias type="com.zjjershouche.model.Carpinpai" alias="Carpinpai" />
+		<typeAlias type="com.zjjershouche.model.Page" alias="Page" />
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/zjjershouche/mapper/UserMapper.xml" />
+		<mapper resource="com/zjjershouche/mapper/CarMapper.xml" />
+		<mapper resource="com/zjjershouche/mapper/AdminMapper.xml" />
+	</mappers>
+</configuration>

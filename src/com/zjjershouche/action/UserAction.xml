@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="user" namespace="/user" extends="zjjershouche">
+		<result-types>
+			<result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+		<interceptors>
+			<interceptor name="json"
+				class="org.apache.struts2.json.JSONInterceptor" />
+		</interceptors>
+		<action name="userAction" class="userAction">
+			<result name="loginSuccess">
+				/user/index.jsp
+			</result>
+			<result name="loginFiled">
+				/user/login.jsp
+			</result>
+			<result name="yanzhenSuccess" type="json">
+				<param name="root">mark</param>
+			</result>
+			<result name="registerSuccess">
+				/user/login.jsp
+			</result>
+			<result name="registerFiled">
+				/user/register.jsp
+			</result>
+			<result name="editpass">
+				/user/userEditPass.jsp
+			</result>
+			<result name="editpassF">
+				/user/userPass.jsp
+			</result>
+			<result name="user">
+			    /user/user.jsp
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zjjershouche.dao.CarDao">
+	<select id="buyCar" parameterType="Car" resultType="Car">
+	    select * from car c,carimg i where c.status=0 and c.type=1 and c.id=#{id} and c.id=i.carid and i.fengmian=0
+	</select>
+	
+	<select id="buyCarImg" parameterType="Car" resultMap="resultCarimg">
+	  select * from carimg where carid=#{id}
+	</select>
+	
+	<select id="buyPageChexi" parameterType="Car" resultMap="resultCar">
+	    select * from car where status=0 and type=1 and carpinpai=#{carpinpai} and chexi=#{chexi} and id!=#{id} order by rand() limit 10
+	</select>
+	
+	<select id="buyPageJiawei" parameterType="Car" resultMap="resultCar">
+	    select * from car where status=0 and type=1 and jiage&gt;#{jiage}-5 and jiage&lt;#{jiage}+5 and id!=#{id} order by rand() limit 10
+	</select>
+	<select id="searchChexi" parameterType="Carselect" resultMap="resultCarselect">
+	    select * from carselect where pinpai=#{pinpai}
+	</select>
+	<select id="wantlistnum" parameterType="Search" resultType="int">
+	    select count(1) from wantcar where status=0
+	</select>
+	<select id="searchWantCar" parameterType="java.util.Map" resultMap="resultCar">
+	    select * from wantcar where status=0 order by id desc limit  #{page.startnum},#{page.pagelistnum}
+	</select>
+	<select id="listnum" parameterType="Search" resultType="int">
+	    select count(1) from car where status=0 and type=1 
+	    <if test="carpinpai!=null and carpinpai!=''">
+			 and carpinpai=#{carpinpai}
+		</if>
+		<if test="chexi!=null and chexi!=''">
+			 and chexi=#{chexi}
+		</if>
+		<if test="cartype!=null and cartype!=''">
+			 and cartype=#{cartype}
+		</if>
+		<if test="jiage=='1万以内'">
+			 and jiage between 0 and 1 
+		</if>
+		<if test="jiage=='1万-2万'">
+			 and jiage between 1 and 2 
+		</if>
+		<if test="jiage=='2万-3万'">
+			 and jiage between 2 and 3 
+		</if>
+		<if test="jiage=='3万-5万'">
+			 and jiage between 3 and 5 
+		</if>
+		<if test="jiage=='5万-10万'">
+			 and jiage between 5 and 10 
+		</if>
+		<if test="jiage=='10万-30万'">
+			 and jiage between 10 and 30 
+		</if>
+		<if test="jiage=='30万以上'">
+			 and jiage&gt;=30 
+		</if>
+		<if test="cheling=='1年以内'">
+			 and cheling between 0 and 1
+		</if>
+		<if test="cheling=='1-2年'">
+			 and cheling between 1 and 2
+		</if>
+		<if test="cheling=='2-3年'">
+			 and cheling between 2 and 3
+		</if>
+		<if test="cheling=='3-5年'">
+			 and cheling between 3 and 5
+		</if>
+		<if test="cheling=='5-10年'">
+			 and cheling between 5 and 10
+		</if>
+		<if test="cheling=='10年以上'">
+			 and cheling&lt;=10 
+		</if>
+		
+		<if test="pailiang=='1.0L以内'">
+			 and pailiang between 0 and 1
+		</if>
+		<if test="pailiang=='1.0L-1.5L'">
+			 and pailiang between 1 and 1.5
+		</if>
+		<if test="pailiang=='1.5L-2.0L'">
+			 and pailiang between 1.5 and 2
+		</if>
+		<if test="pailiang=='2.0L-2.5L'">
+			 and pailiang between 2 and 2.5
+		</if>
+		<if test="pailiang=='2.5L-3.0L'">
+			 and pailiang between 2.5 and 3
+		</if>
+		<if test="pailiang=='3.0L以上'">
+			 and pailiang&lt;=3
+		</if>
+		<if test="keyword!=null and keyword!=''">
+		 and (title like CONCAT('%',#{keyword},'%')   or carpinpai like CONCAT('%',#{keyword},'%') or chexi like CONCAT('%',#{keyword},'%') or title like CONCAT('%',#{keyword},'%') or cartype like CONCAT('%',#{keyword},'%') or carcolor like CONCAT('%',#{keyword},'%'))
+	    </if>
+	</select>
+	<select id="searchCar" parameterType="java.util.Map" resultMap="resultCar">
+	    select * from car c,carimg i where c.id=i.carid and i.fengmian=0 and c.status=0 and c.type=1  
+        <if test="search!=null and search.carpinpai!=null and search.carpinpai!=''">
+			 and c.carpinpai=#{search.carpinpai}
+		</if>
+		<if test="search!=null and search.chexi!=null and search.chexi!=''">
+			 and c.chexi=#{search.chexi}
+		</if>
+		<if test="search!=null and search.cartype!=null and search.cartype!=''">
+			 and c.cartype=#{search.cartype}
+		</if>
+		<if test="search!=null and search.jiage=='1万以内'">
+			 and c.jiage between 0 and 1 
+		</if>
+		<if test="search!=null and search.jiage=='1万-2万'">
+			 and c.jiage between 1 and 2 
+		</if>
+		<if test="search!=null and search.jiage=='2万-3万'">
+			 and c.jiage between 2 and 3 
+		</if>
+		<if test="search!=null and search.jiage=='3万-5万'">
+			 and c.jiage between 3 and 5 
+		</if>
+		<if test="search!=null and search.jiage=='5万-10万'">
+			 and c.jiage between 5 and 10 
+		</if>
+		<if test="search!=null and search.jiage=='10万-30万'">
+			 and c.jiage between 10 and 30 
+		</if>
+		<if test="search!=null and search.jiage=='30万以上'">
+			 and c.jiage&gt;=30 
+		</if>
+		<if test="search!=null and search.cheling=='1年以内'">
+			 and c.cheling between 0 and 1
+		</if>
+		<if test="search!=null and search.cheling=='1-2年'">
+			 and c.cheling between 1 and 2
+		</if>
+		<if test="search!=null and search.cheling=='2-3年'">
+			 and c.cheling between 2 and 3
+		</if>
+		<if test="search!=null and search.cheling=='3-5年'">
+			 and c.cheling between 3 and 5
+		</if>
+		<if test="search!=null and search.cheling=='5-10年'">
+			 and c.cheling between 5 and 10
+		</if>
+		<if test="search!=null and search.cheling=='10年以上'">
+			 and c.cheling&lt;=10 
+		</if>
+		
+		<if test="search!=null and search.pailiang=='1.0L以内'">
+			 and c.pailiang between 0 and 1
+		</if>
+		<if test="search!=null and search.pailiang=='1.0L-1.5L'">
+			 and c.pailiang between 1 and 1.5
+		</if>
+		<if test="search!=null and search.pailiang=='1.5L-2.0L'">
+			 and c.pailiang between 1.5 and 2
+		</if>
+		<if test="search!=null and search.pailiang=='2.0L-2.5L'">
+			 and c.pailiang between 2 and 2.5
+		</if>
+		<if test="search!=null and search.pailiang=='2.5L-3.0L'">
+			 and c.pailiang between 2.5 and 3
+		</if>
+		<if test="search!=null and search.pailiang=='3.0L以上'">
+			 and c.pailiang&lt;=3
+		</if>
+		<if test="search!=null and search.keyword!=null and search.keyword!=''">
+		 and (c.title like CONCAT('%',#{search.keyword},'%')   or c.carpinpai like CONCAT('%',#{search.keyword},'%') or c.chexi like CONCAT('%',#{search.keyword},'%') or c.title like CONCAT('%',#{search.keyword},'%') or c.cartype like CONCAT('%',#{search.keyword},'%') or c.carcolor like CONCAT('%',#{search.keyword},'%'))
+	    </if>
+	      order by c.id desc limit #{page.startnum},#{page.pagelistnum}
+	</select>
+	
+	<insert id="addCarInfo" parameterType="Car">
+	    insert into car values(default,#{title},#{note},#{carpinpai},#{chexi},#{jiage},#{cartype},#{carcolor},#{username},#{pailiang},#{licheng},#{biansuxiang},#{shangpaidate},#{lianxiren},#{lianxidianhua},#{biaolicheng},#{yiershou},#{jiaoqiangxian},#{cheling},#{chuchangri},#{chekuang},#{chepaihao},#{kanchedizhi},#{qitagongneng},#{fabudate},0,0,0,0)
+	</insert>
+	
+	<select id="searchLastCar" resultType="Car">
+	    select * from car order by id DESC  limit 1
+	</select>
+	
+	<insert id="addCarImg" parameterType="Carimg">
+	    insert into carimg values(default,#{carid},#{carimgurl},#{fengmian})
+	</insert>
+	
+	<select id="searchCarSelect" resultMap="resultCarpinpai">
+	    select * from carpinpai
+	</select>
+	
+	<update id="liulanjia" parameterType="Car">
+	    update car set liulan=liulan+1 where id=#{id}
+	</update>
+	<select id="remenCarList" resultMap="resultCar">
+	    select * from car order by liulan desc limit 10
+	</select>
+	<insert id="qiugou" parameterType="Car">
+	    insert into wantcar values(default,#{carpinpai},#{chexi},#{cartype},#{jiage},#{cheling},#{note},#{lianxiren},#{lianxidianhua},#{username},0,0)
+	</insert>
+	<select id="buyList" parameterType="User" resultMap="resultCar">
+	    select * from car where username=#{username}
+	</select>
+	<select id="sellList" parameterType="User" resultMap="resultCar">
+	    select * from wantcar where username=#{username}
+	</select>
+	<update id="carcaozuo" parameterType="Car">
+	    update car set status=2 where id=#{id}
+	</update>
+	<update id="wcarcaozuo" parameterType="Car">
+	    update wantcar set status=2 where id=#{id}
+	</update>
+		<resultMap type="Carpinpai" id="resultCarpinpai">
+		<id property="id" column="id" />
+		<result property="pinpai" column="pinpai" />
+		<result property="pinpaiword" column="pinpaiword" />
+	</resultMap>
+	<resultMap type="Carselect" id="resultCarselect">
+		<id property="id" column="id" />
+		<result property="pinpai" column="pinpai" />
+		<result property="chexi" column="chexi" />
+		</resultMap>
+	<resultMap type="Car" id="resultCar">
+		<id property="id" column="id" />
+		<result property="title" column="title" />
+		<result property="note" column="note" />
+		<result property="carpinpai" column="carpinpai" />
+		<result property="chexi" column="chexi" />
+		<result property="cartype" column="cartype" />
+		<result property="carcolor" column="carcolor" />
+		<result property="username" column="username" />
+		<result property="pailiang" column="pailiang" />
+		<result property="licheng" column="licheng" />
+		<result property="biansuxiang" column="biansuxiang" />
+		<result property="shangpaidate" column="shangpaidate" />
+		<result property="lianxiren" column="lianxiren" />
+		<result property="lianxidianhua" column="lianxidianhua" />
+		<result property="biaolicheng" column="biaolicheng" />
+		<result property="yiershou" column="yiershou" />
+		<result property="jiaoqiangxian" column="jiaoqiangxian" />
+		<result property="cheling" column="cheling" />
+		<result property="chuchangri" column="chuchangri" />
+		<result property="chekuang" column="chekuang" />
+		<result property="chepaihao" column="chepaihao" />
+		<result property="kanchedizhi" column="kanchedizhi" />
+		<result property="qitagongneng" column="qitagongneng" />
+		<result property="fabudate" column="fabudate" />
+		<result property="liulan" column="liulan" />
+		<result property="zan" column="zan" />
+		<result property="status" column="status" />
+		<result property="type" column="type" />
+		<result property="jiage" column="jiage" />
+		<result property="carimgurl" column="carimgurl" />
+		<association property="carimg" javaType="Carimg">
+			<id property="id" column="id" />
+			<result property="carid" column="carid" />
+			<result property="carimgurl" column="carimgurl" />
+			<result property="fengmian" column="fengmian" />
+		</association>
+	</resultMap>
+	<resultMap type="Carimg" id="resultCarimg">
+		<id property="id" column="id" />
+			<result property="carid" column="carid" />
+			<result property="carimgurl" column="carimgurl" />
+			<result property="fengmian" column="fengmian" />
+	</resultMap>
+</mapper>
